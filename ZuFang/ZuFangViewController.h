@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ZuFangViewController : UIViewController
+@interface ZuFangViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 
 @end
