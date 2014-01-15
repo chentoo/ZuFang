@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9820BBE318862C96007F680F /* ZuFangCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9820BBE218862C96007F680F /* ZuFangCell.m */; };
+		9820BBE518862CA8007F680F /* ZuFangCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9820BBE418862CA8007F680F /* ZuFangCell.xib */; };
+		9820BBEB18863C3A007F680F /* FangYuanObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9820BBEA18863C3A007F680F /* FangYuanObject.m */; };
+		9820BBEE18864040007F680F /* FangYuanGroupURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 9820BBED18864040007F680F /* FangYuanGroupURL.m */; };
 		98E67E211884DBC50024E209 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98E67E201884DBC50024E209 /* Foundation.framework */; };
 		98E67E231884DBC50024E209 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98E67E221884DBC50024E209 /* CoreGraphics.framework */; };
 		98E67E251884DBC50024E209 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98E67E241884DBC50024E209 /* UIKit.framework */; };
@@ -21,6 +25,10 @@
 		98E67E421884DBC60024E209 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98E67E241884DBC50024E209 /* UIKit.framework */; };
 		98E67E4A1884DBC60024E209 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 98E67E481884DBC60024E209 /* InfoPlist.strings */; };
 		98E67E4C1884DBC60024E209 /* ZuFangTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 98E67E4B1884DBC60024E209 /* ZuFangTests.m */; };
+		98E67E951884EA9B0024E209 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 98E67E941884EA9B0024E209 /* libxml2.2.dylib */; };
+		98E67E98188507440024E209 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 98E67E97188507440024E209 /* MBProgressHUD.m */; };
+		98E67E9C188516070024E209 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98E67E9A188516070024E209 /* DetailViewController.m */; };
+		98E67E9D188516070024E209 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98E67E9B188516070024E209 /* DetailViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +42,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9820BBE118862C96007F680F /* ZuFangCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZuFangCell.h; sourceTree = "<group>"; };
+		9820BBE218862C96007F680F /* ZuFangCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZuFangCell.m; sourceTree = "<group>"; };
+		9820BBE418862CA8007F680F /* ZuFangCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ZuFangCell.xib; path = ../ZuFangCell.xib; sourceTree = "<group>"; };
+		9820BBE918863C3A007F680F /* FangYuanObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FangYuanObject.h; sourceTree = "<group>"; };
+		9820BBEA18863C3A007F680F /* FangYuanObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FangYuanObject.m; sourceTree = "<group>"; };
+		9820BBEC18864040007F680F /* FangYuanGroupURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FangYuanGroupURL.h; sourceTree = "<group>"; };
+		9820BBED18864040007F680F /* FangYuanGroupURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FangYuanGroupURL.m; sourceTree = "<group>"; };
 		98E67E1D1884DBC50024E209 /* ZuFang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZuFang.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98E67E201884DBC50024E209 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		98E67E221884DBC50024E209 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -53,6 +68,12 @@
 		98E67E471884DBC60024E209 /* ZuFangTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ZuFangTests-Info.plist"; sourceTree = "<group>"; };
 		98E67E491884DBC60024E209 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		98E67E4B1884DBC60024E209 /* ZuFangTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZuFangTests.m; sourceTree = "<group>"; };
+		98E67E941884EA9B0024E209 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
+		98E67E96188507440024E209 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		98E67E97188507440024E209 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		98E67E99188516070024E209 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		98E67E9A188516070024E209 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		98E67E9B188516070024E209 /* DetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98E67E951884EA9B0024E209 /* libxml2.2.dylib in Frameworks */,
 				98E67E231884DBC50024E209 /* CoreGraphics.framework in Frameworks */,
 				98E67E251884DBC50024E209 /* UIKit.framework in Frameworks */,
 				98E67E211884DBC50024E209 /* Foundation.framework in Frameworks */,
@@ -79,6 +101,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9820BBE818863C0B007F680F /* model */ = {
+			isa = PBXGroup;
+			children = (
+				9820BBE918863C3A007F680F /* FangYuanObject.h */,
+				9820BBEA18863C3A007F680F /* FangYuanObject.m */,
+				9820BBEC18864040007F680F /* FangYuanGroupURL.h */,
+				9820BBED18864040007F680F /* FangYuanGroupURL.m */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
 		98E67E141884DBC50024E209 = {
 			isa = PBXGroup;
 			children = (
@@ -101,6 +134,7 @@
 		98E67E1F1884DBC50024E209 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				98E67E941884EA9B0024E209 /* libxml2.2.dylib */,
 				98E67E201884DBC50024E209 /* Foundation.framework */,
 				98E67E221884DBC50024E209 /* CoreGraphics.framework */,
 				98E67E241884DBC50024E209 /* UIKit.framework */,
@@ -112,11 +146,18 @@
 		98E67E261884DBC50024E209 /* ZuFang */ = {
 			isa = PBXGroup;
 			children = (
-				98E67E2F1884DBC50024E209 /* ZuFangAppDelegate.h */,
-				98E67E301884DBC50024E209 /* ZuFangAppDelegate.m */,
+				9820BBE818863C0B007F680F /* model */,
+				98E67E96188507440024E209 /* MBProgressHUD.h */,
+				98E67E97188507440024E209 /* MBProgressHUD.m */,
 				98E67E321884DBC50024E209 /* Main.storyboard */,
 				98E67E351884DBC50024E209 /* ZuFangViewController.h */,
 				98E67E361884DBC50024E209 /* ZuFangViewController.m */,
+				98E67E99188516070024E209 /* DetailViewController.h */,
+				98E67E9A188516070024E209 /* DetailViewController.m */,
+				98E67E9B188516070024E209 /* DetailViewController.xib */,
+				9820BBE118862C96007F680F /* ZuFangCell.h */,
+				9820BBE218862C96007F680F /* ZuFangCell.m */,
+				9820BBE418862CA8007F680F /* ZuFangCell.xib */,
 				98E67E381884DBC50024E209 /* Images.xcassets */,
 				98E67E271884DBC50024E209 /* Supporting Files */,
 			);
@@ -126,6 +167,8 @@
 		98E67E271884DBC50024E209 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				98E67E2F1884DBC50024E209 /* ZuFangAppDelegate.h */,
+				98E67E301884DBC50024E209 /* ZuFangAppDelegate.m */,
 				98E67E281884DBC50024E209 /* ZuFang-Info.plist */,
 				98E67E291884DBC50024E209 /* InfoPlist.strings */,
 				98E67E2C1884DBC50024E209 /* main.m */,
@@ -229,9 +272,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9820BBE518862CA8007F680F /* ZuFangCell.xib in Resources */,
 				98E67E391884DBC50024E209 /* Images.xcassets in Resources */,
 				98E67E2B1884DBC50024E209 /* InfoPlist.strings in Resources */,
 				98E67E341884DBC50024E209 /* Main.storyboard in Resources */,
+				98E67E9D188516070024E209 /* DetailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,9 +295,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9820BBE318862C96007F680F /* ZuFangCell.m in Sources */,
+				98E67E9C188516070024E209 /* DetailViewController.m in Sources */,
 				98E67E2D1884DBC50024E209 /* main.m in Sources */,
 				98E67E371884DBC50024E209 /* ZuFangViewController.m in Sources */,
 				98E67E311884DBC50024E209 /* ZuFangAppDelegate.m in Sources */,
+				9820BBEB18863C3A007F680F /* FangYuanObject.m in Sources */,
+				9820BBEE18864040007F680F /* FangYuanGroupURL.m in Sources */,
+				98E67E98188507440024E209 /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,7 +369,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Feng Zhuang (3BX9AEY5J5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Feng Zhuang (3BX9AEY5J5)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -335,10 +386,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				"HEADER_SEARCH_PATHS[arch=*]" = "${SDKROOT}/usr/include/libxml2";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
@@ -359,7 +412,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Kodak (China) Investment Co., Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Kodak (China) Investment Co., Ltd.";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -369,9 +423,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "${SDKROOT}/usr/include/libxml2";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
+				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -385,6 +441,7 @@
 				GCC_PREFIX_HEADER = "ZuFang/ZuFang-Prefix.pch";
 				INFOPLIST_FILE = "ZuFang/ZuFang-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -398,6 +455,7 @@
 				GCC_PREFIX_HEADER = "ZuFang/ZuFang-Prefix.pch";
 				INFOPLIST_FILE = "ZuFang/ZuFang-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -463,6 +521,7 @@
 				98E67E511884DBC60024E209 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		98E67E521884DBC60024E209 /* Build configuration list for PBXNativeTarget "ZuFangTests" */ = {
 			isa = XCConfigurationList;
@@ -471,6 +530,7 @@
 				98E67E541884DBC60024E209 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
