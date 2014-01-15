@@ -197,6 +197,8 @@ static NSInteger maxNumOfPages = 20;
     
 }
 
+#pragma mark - UITableView DataSource
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 74.0f;
 }
@@ -216,23 +218,21 @@ static NSInteger maxNumOfPages = 20;
 {
     static NSString *zufangTableIdentifier = @"zufangIdentifier";
     
-    // 2. 注册自定义Cell的到TableView中，并设置cell标识符为paperCell
     static BOOL isRegNib = NO;
     if (!isRegNib) {
         [tableView registerNib:[UINib nibWithNibName:@"ZuFangCell" bundle:nil] forCellReuseIdentifier:zufangTableIdentifier];
         isRegNib = YES;
     }
-    
-    // 3. 从TableView中获取标识符为paperCell的Cell
+
     ZuFangCell *cell = [tableView dequeueReusableCellWithIdentifier:zufangTableIdentifier];
     
-    // 4. 设置单元格属性
     [cell initCell:[fangyuanArrays objectAtIndex:indexPath.row]];
-
     
     return cell;
     
 }
+
+#pragma mark - UITableView Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -243,15 +243,8 @@ static NSInteger maxNumOfPages = 20;
     
     DetailViewController *detailVC = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
     detailVC.url = url;
-//    [self presentViewController:detailVC animated:YES completion:^{
-//        
-//        [detailVC loadWebView:url];
-//
-//    }];
     
     [self.navigationController pushViewController:detailVC animated:YES];
-    
-    
 }
 
 @end
