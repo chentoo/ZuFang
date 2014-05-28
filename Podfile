@@ -1,0 +1,7 @@
+platform :ios, '7.0'
+pod 'BlocksKit'
+pod 'JVFloatLabeledTextField'
+pod 'UIActivityIndicator-for-SDWebImage'
+pod 'SVProgressHUD'
+pod 'SVPullToRefresh'
+pod 'AVOSCloud'

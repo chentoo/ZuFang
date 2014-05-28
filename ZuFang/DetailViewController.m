@@ -7,7 +7,6 @@
 //
 
 #import "DetailViewController.h"
-#import "MBProgressHUD.h"
 
 @interface DetailViewController ()
 @property (strong, nonatomic) IBOutlet UIWebView *webView;
@@ -31,7 +30,6 @@
     // Do any additional setup after loading the view from its nib.
 //    [self loadWebView:@""];
     [self loadWebView:self.url];
-
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -65,17 +63,17 @@
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-    [MBProgressHUD showHUDAddedTo:self.webView animated:YES];
+
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    [MBProgressHUD hideAllHUDsForView:self.webView animated:YES];
 
+    
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-    [MBProgressHUD hideAllHUDsForView:self.webView animated:YES];
+
 }
 
 @end

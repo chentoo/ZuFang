@@ -1,0 +1,44 @@
+PODS:
+  - AVOSCloud (2.5.5)
+  - BlocksKit (2.2.3):
+    - BlocksKit/All
+  - BlocksKit/All (2.2.3):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
+    - BlocksKit/MessageUI
+    - BlocksKit/UIKit
+  - BlocksKit/Core (2.2.3)
+  - BlocksKit/DynamicDelegate (2.2.3)
+  - BlocksKit/MessageUI (2.2.3):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
+  - BlocksKit/UIKit (2.2.3):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
+  - JVFloatLabeledTextField (0.0.8)
+  - SDWebImage (3.6):
+    - SDWebImage/Core
+  - SDWebImage/Core (3.6)
+  - SVProgressHUD (1.0)
+  - SVPullToRefresh (0.4.1)
+  - UIActivityIndicator-for-SDWebImage (1.0.5):
+    - SDWebImage (~> 3.2)
+
+DEPENDENCIES:
+  - AVOSCloud
+  - BlocksKit
+  - JVFloatLabeledTextField
+  - SVProgressHUD
+  - SVPullToRefresh
+  - UIActivityIndicator-for-SDWebImage
+
+SPEC CHECKSUMS:
+  AVOSCloud: fae1f6f73263ba4613c6381f2943e94c5628c1d6
+  BlocksKit: 07c8a80f04275efac6a5f8b973782489c083a182
+  JVFloatLabeledTextField: 16dea87b899a7b62026eb8d8cf9902c08b1953da
+  SDWebImage: c6989652c1cdf27cbdf3f56957e2030f825af5bc
+  SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
+  SVPullToRefresh: d5161ebc833a38b465364412e5e307ca80bbb190
+  UIActivityIndicator-for-SDWebImage: d9e46f1592d04cfbeda67bb6d7bba5348558697b
+
+COCOAPODS: 0.33.1

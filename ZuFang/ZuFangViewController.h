@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ZuFangViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+@interface ZuFangViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate>
 
 @end
