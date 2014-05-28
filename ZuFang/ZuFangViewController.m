@@ -7,20 +7,19 @@
 //
 
 #import "ZuFangViewController.h"
-#import "FangYuanGroupURL.h"
 #import <SVProgressHUD/SVProgressHUD.h>
-#import "DetailViewController.h"
-#import "ZuFangCell.h"
-#import "FangYuanObject.h"
 #import "ZFCell.h"
+#import "House.h"
 
-static NSInteger maxNumOfPages = 30;
+static NSInteger maxNumOfPages = 10;
 
 @interface ZuFangViewController ()
 {
-    NSMutableArray *fangyuanArrays;
 }
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (nonatomic, strong)     NSMutableArray *housesArray;
+@property (nonatomic, assign)     BOOL hasMore;
 
 @end
 
@@ -30,9 +29,10 @@ static NSInteger maxNumOfPages = 30;
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    fangyuanArrays = [[NSMutableArray alloc] initWithObjects:@"月月大傻逼", nil];
+    _housesArray = [[NSMutableArray alloc] init];
     self.title = @"赫尔呵呵";
     [self initCollectionView];
+    [self findAds:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -53,7 +53,58 @@ static NSInteger maxNumOfPages = 30;
 {
     self.collectionView.collectionViewLayout = [self layoutFromeRowSize:1];
     [self.collectionView registerClass:[ZFCell class] forCellWithReuseIdentifier:@"ZFCell"];
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(refreshCollectionView) forControlEvents:UIControlEventValueChanged];
+    [self.collectionView addSubview:self.refreshControl];
 }
+
+- (void)refreshCollectionView
+{
+    [self findAds:NO];
+}
+#pragma mark - AVOS Query
+
+- (void)findAds:(BOOL)isAppend
+{
+    __weak ZuFangViewController *weakSelf = self;
+
+    AVQuery *houseQuery = [House query];
+    houseQuery.limit = maxNumOfPages;
+    houseQuery.skip = isAppend ? self.housesArray.count : 0;
+    [houseQuery orderByDescending:@"updatedAt"];
+    [houseQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            
+            if (isAppend) {
+                weakSelf.hasMore = objects.count >= maxNumOfPages;
+                [self addAdsToCollectionViewBottom:objects];
+            } else {
+                [weakSelf.refreshControl endRefreshing];
+                weakSelf.housesArray = [NSMutableArray arrayWithArray:objects];
+                weakSelf.hasMore = YES;
+                [weakSelf.collectionView reloadData];
+            }
+        }
+    }];
+    
+}
+
+//在collectionview中，增加一堆house到末尾
+- (void)addAdsToCollectionViewBottom:(NSArray *)houses
+{
+    __block ZuFangViewController *weakSelf = self;
+    NSInteger start = self.housesArray.count;
+    
+    [self.collectionView performBatchUpdates:^{
+        NSMutableArray *arrayWithIndexPaths = [NSMutableArray array];
+        for (NSInteger i = start; i < houses.count + start; i ++) {
+            [arrayWithIndexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+        }
+        [weakSelf.housesArray addObjectsFromArray:houses];
+        [weakSelf.collectionView insertItemsAtIndexPaths:arrayWithIndexPaths];
+    } completion:nil];
+}
+
 
 #pragma mark - UICollectionView DateSource
 
@@ -62,7 +113,7 @@ static NSInteger maxNumOfPages = 30;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 20;
+    return self.housesArray.count;
 }
 
 
@@ -70,8 +121,14 @@ static NSInteger maxNumOfPages = 30;
     static NSString * CellIdentifier = @"ZFCell";
     
     ZFCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-    cell.titleLabel.text = @"月月大傻逼";
     
+    House *house = [self.housesArray objectAtIndex:indexPath.row];
+    cell.titleLabel.text = house.title;
+    
+    if (indexPath.row == self.housesArray.count - 1 && self.hasMore) {
+        [self findAds:YES];
+    }
+
     return cell;
 }
 

@@ -7,12 +7,15 @@
 //
 
 #import "ZuFangAppDelegate.h"
+#import <AVOSCloud/AVOSCloud.h>
+#import "House.h"
 
 @implementation ZuFangAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [self initAVOSWithLaunchOptions:launchOptions];
     return YES;
 }
 							
@@ -41,6 +44,14 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)initAVOSWithLaunchOptions:(NSDictionary *)options
+{
+    [House registerSubclass];
+    [AVOSCloud setApplicationId:@"yvl77dkjscth741rdrt9idjls508x514gczl5gwhsa69nn5y"
+                      clientKey:@"11qzu7b6khd4qjetu3lfs6yjlv1wpoc7u3fwmr3jp3ydfp77"];
+    [AVAnalytics trackAppOpenedWithLaunchOptions:options];
 }
 
 @end
