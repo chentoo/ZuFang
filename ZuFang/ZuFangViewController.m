@@ -8,6 +8,8 @@
 
 #import "ZuFangViewController.h"
 #import <SVProgressHUD/SVProgressHUD.h>
+#import <UIImageView+UIActivityIndicatorForSDWebImage.h>
+#import "NSAttributedString+Lintie.h"
 #import "ZFCell.h"
 #import "House.h"
 
@@ -74,7 +76,6 @@ static NSInteger maxNumOfPages = 10;
     [houseQuery orderByDescending:@"updatedAt"];
     [houseQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            
             if (isAppend) {
                 weakSelf.hasMore = objects.count >= maxNumOfPages;
                 [self addAdsToCollectionViewBottom:objects];
@@ -121,10 +122,53 @@ static NSInteger maxNumOfPages = 10;
     static NSString * CellIdentifier = @"ZFCell";
     
     ZFCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-    
+    cell.backgroundColor = [UIColor colorWithRed:((10 * (indexPath.row % 10 + 3)) / 255.0) green:((20 * (indexPath.row % 10 + 3))/255.0) blue:((30 * (indexPath.row % 10 + 3))/255.0) alpha:1.0f];    //默认底色
+
     House *house = [self.housesArray objectAtIndex:indexPath.row];
-    cell.titleLabel.text = house.title;
     
+    // title
+    if (house.title) {
+        cell.titleLabel.attributedText = [NSAttributedString attributedStringWithText:house.title fontSize:20];
+    }
+    else{
+        cell.titleLabel.attributedText = nil;
+    }
+    // updateTime
+    if (house.updateTime) {
+        cell.timeLabel.attributedText = [NSAttributedString attributedStringWithText:house.updateTime fontSize:12];
+    }
+    else{
+        cell.timeLabel.attributedText = nil;
+    }
+
+    // image
+    if (house.images && house.images.count > 0) {
+        NSString *imageUrl = [house.images objectAtIndex:0];
+        __block ZFCell *weakCell = cell;
+        [cell.imageView setImageWithURL:[NSURL URLWithString:imageUrl]
+                              completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+                                  weakCell.imageView.alpha = 0;
+                                  [UIView animateWithDuration:0.3
+                                                   animations:^{
+                                                       weakCell.imageView.alpha = 1.0;
+                                                   }];
+                              }];
+    }
+    else{
+        [cell.imageView setImage:nil];
+    }
+    
+    //----------- 动画 -------------
+    CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    
+    scaleAnimation.fromValue = [NSNumber numberWithFloat:0.8];
+    scaleAnimation.toValue = [NSNumber numberWithFloat:1.0];
+    scaleAnimation.duration = 0.4f;
+    
+    scaleAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    [cell.layer addAnimation:scaleAnimation forKey:@"scale"];
+
+    // load more
     if (indexPath.row == self.housesArray.count - 1 && self.hasMore) {
         [self findAds:YES];
     }

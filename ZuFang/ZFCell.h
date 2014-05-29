@@ -11,5 +11,7 @@
 @interface ZFCell : UICollectionViewCell
 
 @property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UILabel *timeLabel;
 
 @end

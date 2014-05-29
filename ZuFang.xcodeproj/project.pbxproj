@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3B246E30245D4D9CAA88AC5C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EFD423769A7E4B6D95C538AA /* libPods.a */; };
+		7A3C47241937279D00B86D5D /* NSAttributedString+Lintie.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3C47231937279D00B86D5D /* NSAttributedString+Lintie.m */; };
 		7AE262CF1935D91F00CEC5C2 /* ZFCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE262CE1935D91F00CEC5C2 /* ZFCell.m */; };
 		7AE262D31935E4CC00CEC5C2 /* House.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE262D21935E4CC00CEC5C2 /* House.m */; };
 		98E67E211884DBC50024E209 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98E67E201884DBC50024E209 /* Foundation.framework */; };
@@ -39,6 +40,8 @@
 
 /* Begin PBXFileReference section */
 		6D365C02CBDE45DAA0B27575 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		7A3C47221937279D00B86D5D /* NSAttributedString+Lintie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Lintie.h"; sourceTree = "<group>"; };
+		7A3C47231937279D00B86D5D /* NSAttributedString+Lintie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Lintie.m"; sourceTree = "<group>"; };
 		7AE262CD1935D91F00CEC5C2 /* ZFCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFCell.h; sourceTree = "<group>"; };
 		7AE262CE1935D91F00CEC5C2 /* ZFCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFCell.m; sourceTree = "<group>"; };
 		7AE262D11935E4CC00CEC5C2 /* House.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = House.h; sourceTree = "<group>"; };
@@ -92,6 +95,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7A3C47211937279100B86D5D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				7A3C47221937279D00B86D5D /* NSAttributedString+Lintie.h */,
+				7A3C47231937279D00B86D5D /* NSAttributedString+Lintie.m */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
 		7AE262CC1935D8EF00CEC5C2 /* views */ = {
 			isa = PBXGroup;
 			children = (
@@ -155,6 +167,7 @@
 		98E67E261884DBC50024E209 /* ZuFang */ = {
 			isa = PBXGroup;
 			children = (
+				7A3C47211937279100B86D5D /* Utils */,
 				7AE262D01935E32D00CEC5C2 /* controllers */,
 				7AE262CC1935D8EF00CEC5C2 /* views */,
 				9820BBE818863C0B007F680F /* models */,
@@ -331,6 +344,7 @@
 			files = (
 				98E67E2D1884DBC50024E209 /* main.m in Sources */,
 				98E67E371884DBC50024E209 /* ZuFangViewController.m in Sources */,
+				7A3C47241937279D00B86D5D /* NSAttributedString+Lintie.m in Sources */,
 				98E67E311884DBC50024E209 /* ZuFangAppDelegate.m in Sources */,
 				7AE262D31935E4CC00CEC5C2 /* House.m in Sources */,
 				7AE262CF1935D91F00CEC5C2 /* ZFCell.m in Sources */,

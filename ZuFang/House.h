@@ -16,6 +16,7 @@
 @property(nonatomic, strong) NSString *title;
 @property(nonatomic, strong) NSString *commentCount;
 @property(nonatomic, strong) NSString *userUrl;
+@property(nonatomic, strong) NSArray  *images;
 
 
 @end

@@ -16,4 +16,6 @@
 @dynamic userNickname;
 @dynamic userUrl;
 @dynamic commentCount;
+@dynamic images;
+
 @end
