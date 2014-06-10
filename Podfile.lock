@@ -1,5 +1,5 @@
 PODS:
-  - AVOSCloud (2.5.5)
+  - AVOSCloud (2.5.7)
   - BlocksKit (2.2.3):
     - BlocksKit/All
   - BlocksKit/All (2.2.3):
@@ -33,7 +33,7 @@ DEPENDENCIES:
   - UIActivityIndicator-for-SDWebImage
 
 SPEC CHECKSUMS:
-  AVOSCloud: fae1f6f73263ba4613c6381f2943e94c5628c1d6
+  AVOSCloud: d28c040b4ba500af4ae411290a5ba1ca4d9fb483
   BlocksKit: 07c8a80f04275efac6a5f8b973782489c083a182
   JVFloatLabeledTextField: 16dea87b899a7b62026eb8d8cf9902c08b1953da
   SDWebImage: c6989652c1cdf27cbdf3f56957e2030f825af5bc
