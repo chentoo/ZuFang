@@ -25,6 +25,7 @@ static NSInteger kMaxNumOfPages = 10;
 @property (weak, nonatomic) IBOutlet UITextField *keyTextField;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *showAllHouseButtonItem;
+@property (strong, nonatomic) NSString *currentKeys;
 
 @end
 
@@ -71,8 +72,14 @@ static NSInteger kMaxNumOfPages = 10;
 
 - (IBAction)showAllButtonPressed:(id)sender
 {
-    [self refreshCollectionView];
     self.showAllHouseButtonItem.enabled = NO;
+//    self.hasMore = YES;
+    [self refreshCollectionView];
+}
+//搜索状态
+- (BOOL)isSearchingState
+{
+    return self.showAllHouseButtonItem.enabled == YES;
 }
 #pragma mark - AVOS Query
 
@@ -179,8 +186,14 @@ static NSInteger kMaxNumOfPages = 10;
     [cell.layer addAnimation:scaleAnimation forKey:@"scale"];
 
     // load more
+    
     if (indexPath.row == self.housesArray.count - 1 && self.hasMore) {
-        [self findAds:YES];
+        if ([self isSearchingState]) {
+            [self searchWithKeys:self.currentKeys loadMore:YES];
+        }
+        else{
+            [self findAds:YES];
+        }
     }
 
     return cell;
@@ -213,7 +226,6 @@ static NSInteger kMaxNumOfPages = 10;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    NSLog(@"%@     %f", NSStringFromCGPoint(scrollView.contentOffset), self.searchBar.frame.origin.y);
     if (scrollView.contentOffset.y > -88 && self.searchBar.frame.origin.y == 64)
     {
         [self searchBarDismiss];
@@ -226,9 +238,19 @@ static NSInteger kMaxNumOfPages = 10;
 
 #pragma mark - AVSearchQuery
 
-- (void)searchWithKeys:(NSString *)keys
+- (void)searchWithKeys:(NSString *)keys loadMore:(BOOL)loadMore
 {
-    [self searchWithKeys:keys lastId:nil];
+    if (loadMore) {
+        if (self.hasMore) {
+            House *lastHouse = self.housesArray.lastObject;
+            NSString *lastId = lastHouse.objectId;
+            [self searchWithKeys:keys lastId:lastId];
+        }
+    }
+    else
+    {
+        [self searchWithKeys:keys lastId:nil];
+    }
 }
 
 - (void)searchWithKeys:(NSString *)keys lastId:(NSString *)lastId
@@ -242,15 +264,19 @@ static NSInteger kMaxNumOfPages = 10;
     searchQuery.lastId = lastId;
     
     [searchQuery findInBackground:^(NSArray *objects, NSError *error) {
-        NSLog(@"error  %@ objects %d",error, objects.count);
         if (error == nil) {
-            for (AVObject *object in objects) {
-                NSLog(@"object title ------%@ ",[object objectForKey:@"title"]);
+//            NSLog(@"objects %d", objects.count);
+
+            self.hasMore = objects.count == kMaxNumOfPages;
+            if (objects.count > 0) {
+                [AVObject fetchAll:objects];
+                self.housesArray = [objects mutableCopy];
+                [self.collectionView reloadData];
             }
-            [AVObject fetchAll:objects];
-            self.housesArray = [objects mutableCopy];
-            [self.collectionView reloadData];
             self.showAllHouseButtonItem.enabled = YES;
+        }
+        else{
+            NSLog(@"error  %@ ",error);
         }
         [SVProgressHUD dismiss];
     }];
@@ -301,7 +327,8 @@ static NSInteger kMaxNumOfPages = 10;
 {
     [self.view endEditing:YES];
     [SVProgressHUD showWithStatus:@"疯狂搜索中..."];
-    [self searchWithKeys:searchBar.text];
+    self.currentKeys = searchBar.text;
+    [self searchWithKeys:searchBar.text loadMore:NO];
 }
 
 @end
