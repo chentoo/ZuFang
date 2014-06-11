@@ -12,10 +12,11 @@
 #import "NSAttributedString+Lintie.h"
 #import "ZFCell.h"
 #import "House.h"
+#import "DetailViewController.h"
 
 static NSInteger kMaxNumOfPages = 10;
 
-@interface ZuFangViewController () <UISearchBarDelegate>
+@interface ZuFangViewController () <UISearchBarDelegate, UIGestureRecognizerDelegate>
 {
 }
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
@@ -81,6 +82,15 @@ static NSInteger kMaxNumOfPages = 10;
 {
     return self.showAllHouseButtonItem.enabled == YES;
 }
+
+ #pragma mark - Navigation
+ 
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    DetailViewController *detailVC = [segue destinationViewController];
+    detailVC.urlString = sender;
+}
+
 #pragma mark - AVOS Query
 
 - (void)findAds:(BOOL)isAppend
@@ -204,6 +214,9 @@ static NSInteger kMaxNumOfPages = 10;
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"呵呵呵");
+    House *house = [self.housesArray objectAtIndex:indexPath.row];
+    [self performSegueWithIdentifier:@"pushToDetailVC" sender:house.houseUrl];
+    
 }
 
 
