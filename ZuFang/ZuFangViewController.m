@@ -13,15 +13,18 @@
 #import "ZFCell.h"
 #import "House.h"
 
-static NSInteger maxNumOfPages = 10;
+static NSInteger kMaxNumOfPages = 10;
 
-@interface ZuFangViewController ()
+@interface ZuFangViewController () <UISearchBarDelegate>
 {
 }
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, strong)     NSMutableArray *housesArray;
 @property (nonatomic, assign)     BOOL hasMore;
+@property (weak, nonatomic) IBOutlet UITextField *keyTextField;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *showAllHouseButtonItem;
 
 @end
 
@@ -31,16 +34,17 @@ static NSInteger maxNumOfPages = 10;
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    self.showAllHouseButtonItem.enabled = NO;
     _housesArray = [[NSMutableArray alloc] init];
-    self.title = @"赫尔呵呵";
     [self initCollectionView];
     [self findAds:NO];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = YES;
+//    self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -64,6 +68,12 @@ static NSInteger maxNumOfPages = 10;
 {
     [self findAds:NO];
 }
+
+- (IBAction)showAllButtonPressed:(id)sender
+{
+    [self refreshCollectionView];
+    self.showAllHouseButtonItem.enabled = NO;
+}
 #pragma mark - AVOS Query
 
 - (void)findAds:(BOOL)isAppend
@@ -71,13 +81,13 @@ static NSInteger maxNumOfPages = 10;
     __weak ZuFangViewController *weakSelf = self;
 
     AVQuery *houseQuery = [House query];
-    houseQuery.limit = maxNumOfPages;
+    houseQuery.limit = kMaxNumOfPages;
     houseQuery.skip = isAppend ? self.housesArray.count : 0;
     [houseQuery orderByDescending:@"updatedAt"];
     [houseQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             if (isAppend) {
-                weakSelf.hasMore = objects.count >= maxNumOfPages;
+                weakSelf.hasMore = objects.count >= kMaxNumOfPages;
                 [self addAdsToCollectionViewBottom:objects];
             } else {
                 [weakSelf.refreshControl endRefreshing];
@@ -199,5 +209,99 @@ static NSInteger maxNumOfPages = 10;
     return layout;
 }
 
+#pragma mark - UIScrollView Delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    NSLog(@"%@     %f", NSStringFromCGPoint(scrollView.contentOffset), self.searchBar.frame.origin.y);
+    if (scrollView.contentOffset.y > -88 && self.searchBar.frame.origin.y == 64)
+    {
+        [self searchBarDismiss];
+    }
+    else if (scrollView.contentOffset.y < -88 && self.searchBar.frame.origin.y != 64)
+    {
+        [self searchBarShow];
+    }
+}
+
+#pragma mark - AVSearchQuery
+
+- (void)searchWithKeys:(NSString *)keys
+{
+    [self searchWithKeys:keys lastId:nil];
+}
+
+- (void)searchWithKeys:(NSString *)keys lastId:(NSString *)lastId
+{
+    if (keys == nil || keys.length == 0) {
+        return;
+    }
+    AVSearchQuery *searchQuery = [AVSearchQuery searchWithQueryString:[NSString stringWithFormat:@"title:(%@)", keys]];
+    searchQuery.className = @"House";
+    searchQuery.limit = kMaxNumOfPages;
+    searchQuery.lastId = lastId;
+    
+    [searchQuery findInBackground:^(NSArray *objects, NSError *error) {
+        NSLog(@"error  %@ objects %d",error, objects.count);
+        if (error == nil) {
+            for (AVObject *object in objects) {
+                NSLog(@"object title ------%@ ",[object objectForKey:@"title"]);
+            }
+            [AVObject fetchAll:objects];
+            self.housesArray = [objects mutableCopy];
+            [self.collectionView reloadData];
+            self.showAllHouseButtonItem.enabled = YES;
+        }
+        [SVProgressHUD dismiss];
+    }];
+}
+
+- (NSArray *)keyWordsArrayWithString:(NSString *)string
+{
+    return [string componentsSeparatedByString:@" "];
+}
+
+#pragma mark - UISearchBar show & dismiss
+- (void)searchBarShow
+{
+    self.searchBar.transform = CGAffineTransformMakeTranslation(0, -50);
+    [UIView animateWithDuration:0.3 animations:^{
+        self.searchBar.transform = CGAffineTransformMakeTranslation(0, 0);
+        self.searchBar.alpha = 1.0;
+    }];
+}
+
+- (void)searchBarDismiss
+{
+    [self.view endEditing:YES];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.searchBar.transform = CGAffineTransformMakeTranslation(0, -50);
+        self.searchBar.alpha = 0;
+    }];
+}
+
+#pragma mark - UISearchBar Delegate
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    [searchBar setShowsCancelButton:YES animated:YES];
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+{
+    [searchBar setShowsCancelButton:NO animated:YES];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [self.view endEditing:YES];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [self.view endEditing:YES];
+    [SVProgressHUD showWithStatus:@"疯狂搜索中..."];
+    [self searchWithKeys:searchBar.text];
+}
 
 @end
