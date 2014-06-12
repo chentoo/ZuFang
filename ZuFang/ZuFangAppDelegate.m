@@ -9,6 +9,7 @@
 #import "ZuFangAppDelegate.h"
 #import <AVOSCloud/AVOSCloud.h>
 #import "House.h"
+#import <UMengAnalytics/MobClick.h>
 
 @implementation ZuFangAppDelegate
 
@@ -16,6 +17,7 @@
 {
     // Override point for customization after application launch.
     [self initAVOSWithLaunchOptions:launchOptions];
+    [MobClick startWithAppkey:@"5399689956240b395601d6bd"];
     return YES;
 }
 							
@@ -51,7 +53,7 @@
     [House registerSubclass];
     [AVOSCloud setApplicationId:@"yvl77dkjscth741rdrt9idjls508x514gczl5gwhsa69nn5y"
                       clientKey:@"11qzu7b6khd4qjetu3lfs6yjlv1wpoc7u3fwmr3jp3ydfp77"];
-    [AVAnalytics trackAppOpenedWithLaunchOptions:options];
+//    [AVAnalytics trackAppOpenedWithLaunchOptions:options];
 }
 
 @end

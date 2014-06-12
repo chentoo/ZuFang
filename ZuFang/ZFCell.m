@@ -7,6 +7,7 @@
 //
 
 #import "ZFCell.h"
+#import "NSAttributedString+Lintie.h"
 
 @implementation ZFCell
 
@@ -24,11 +25,22 @@
 
         [self addSubview:_imageView];
 
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 20, frame.size.width - 10, self.frame.size.height - 40)];
-        _titleLabel.textAlignment = NSTextAlignmentCenter;
+        _titleBackView = [[UIView alloc] initWithFrame:CGRectMake(0, frame.size.height - 40, frame.size.width - 0, 40)];
+        _titleBackView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
+        
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, frame.size.width - 10, 40)];
+        _titleLabel.textAlignment = NSTextAlignmentLeft;
         _titleLabel.numberOfLines = 0;
         _titleLabel.textColor = [UIColor blackColor];
-        [self addSubview:_titleLabel];
+        [_titleBackView addSubview:_titleLabel];
+        [self addSubview:_titleBackView];
+        
+        _tipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 20, frame.size.width - 10, frame.size.height - 40)];
+        _tipsLabel.textAlignment = NSTextAlignmentCenter;
+        _tipsLabel.numberOfLines = 0;
+        _tipsLabel.textColor = [UIColor blackColor];
+        [self addSubview:_tipsLabel];
+
         
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(frame.size.width - 110, 5, 100, 20)];
         _timeLabel.textAlignment = NSTextAlignmentRight;
@@ -44,9 +56,11 @@
 - (void)layoutSubviews
 {
     self.imageView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-    self.titleLabel.frame = CGRectMake(5, 20, self.frame.size.width - 10, self.frame.size.height - 40);
-    self.titleLabel.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
+    self.tipsLabel.frame = CGRectMake(5, 20, self.frame.size.width - 10, self.frame.size.height - 40);
+    self.tipsLabel.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
     self.timeLabel.frame = CGRectMake(self.frame.size.width - 110, 5, 100, 20);
+    self.titleBackView.frame = CGRectMake(0, self.frame.size.height - 40, self.frame.size.width - 0, 40);
+    self.titleLabel.frame = CGRectMake(5, 0, self.frame.size.width - 10, 40);
 }
 
 @end

@@ -16,7 +16,7 @@
 #import "DetailViewController.h"
 #import "UICollectionView+ScrollToTop.h"
 
-static NSInteger kMaxNumOfPages = 10;
+static NSInteger kMaxNumOfPages = 12;
 
 @interface ZuFangViewController () <UISearchBarDelegate, UIGestureRecognizerDelegate>
 {
@@ -70,7 +70,12 @@ static NSInteger kMaxNumOfPages = 10;
 
 - (void)refreshCollectionView
 {
-    [self findAds:NO];
+    if ([self isSearchingState]) {
+        [self searchWithKeys:self.searchBar.text];
+    }
+    else{
+        [self findAds:NO];
+    }
 }
 
 - (IBAction)showAllButtonPressed:(id)sender
@@ -159,13 +164,6 @@ static NSInteger kMaxNumOfPages = 10;
 
     House *house = [self.housesArray objectAtIndex:indexPath.row];
     
-    // title
-    if (house.title) {
-        cell.titleLabel.attributedText = [NSAttributedString attributedStringWithText:house.title fontSize:20];
-    }
-    else{
-        cell.titleLabel.attributedText = nil;
-    }
     // updateTime
     if (house.updateTime) {
         cell.timeLabel.attributedText = [NSAttributedString attributedStringWithText:house.updateTime fontSize:12];
@@ -176,6 +174,15 @@ static NSInteger kMaxNumOfPages = 10;
 
     // image
     if (house.images && house.images.count > 0) {
+        cell.tipsLabel.attributedText = nil;
+        // title
+        if (house.title) {
+            cell.titleLabel.attributedText = [NSAttributedString attributedStringWithText:house.title fontSize:13];
+        }
+        else{
+            cell.titleLabel.attributedText = nil;
+        }
+
         NSString *imageUrl = [house.images objectAtIndex:0];
         __block ZFCell *weakCell = cell;
         [cell.imageView setImageWithURL:[NSURL URLWithString:imageUrl]
@@ -190,6 +197,13 @@ static NSInteger kMaxNumOfPages = 10;
     }
     else{
         [cell.imageView setImage:nil];
+        cell.titleLabel.attributedText = nil;
+        if (house.title) {
+            cell.tipsLabel.attributedText = [NSAttributedString attributedStringWithText:house.title fontSize:20];
+        }
+        else{
+            cell.tipsLabel.attributedText = nil;
+        }
     }
     
     //----------- 动画 -------------
@@ -230,16 +244,36 @@ static NSInteger kMaxNumOfPages = 10;
 - (UICollectionViewLayout *)layoutFromeRowSize:(NSUInteger)rowSize
 {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5);
-    if (rowSize == 1) {
-        layout.itemSize = CGSizeMake(300, 300);
-        
-    } else if (rowSize == 2) {
-        layout.itemSize = CGSizeMake(150, 150);
-    } else {
-        layout.itemSize = CGSizeMake(96, 96);
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        if (self.interfaceOrientation == UIDeviceOrientationPortrait || self.interfaceOrientation == UIDeviceOrientationPortraitUpsideDown)
+        {
+            layout.sectionInset = UIEdgeInsetsMake(20, 30, 20, 30);
+            layout.itemSize = CGSizeMake(340, 340);
+        }
+        else
+        {
+            layout.sectionInset = UIEdgeInsetsMake(20, 30, 20, 30);
+            layout.itemSize = CGSizeMake(300, 300);
+        }
+    }
+    else
+    {
+        layout.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5);
+        if (rowSize == 1) {
+            layout.itemSize = CGSizeMake(300, 300);
+            
+        } else if (rowSize == 2) {
+            layout.itemSize = CGSizeMake(150, 150);
+        } else {
+            layout.itemSize = CGSizeMake(96, 96);
+        }
     }
     return layout;
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [self.collectionView setCollectionViewLayout:[self layoutFromeRowSize:1] animated:YES];
 }
 
 #pragma mark - UIScrollView Delegate
@@ -272,26 +306,34 @@ static NSInteger kMaxNumOfPages = 10;
     [SVProgressHUD showWithStatus:@"加载中"];
     [searchQuery findInBackground:^(NSArray *objects, NSError *error) {
         if (error == nil) {
-            NSLog(@"objects %d", objects.count);
-            
             self.hasMore = objects.count == kMaxNumOfPages;
             if (objects.count > 0) {
+                
                 [AVObject fetchAll:objects];
                 if (loadMore)
                 {
                     [self addAdsToCollectionViewBottom:objects];
                 }
                 else{
+                    [self.refreshControl endRefreshing];
                     self.housesArray = [objects mutableCopy];
                     [self.collectionView reloadData];
                 }
+                self.showAllHouseButtonItem.enabled = YES;
+                [SVProgressHUD dismiss];
             }
-            self.showAllHouseButtonItem.enabled = YES;
+            else
+            {
+                if (!loadMore) {
+                    self.hasMore = YES;
+                    [SVProgressHUD showErrorWithStatus:@"啊哦，木有找到您要找的房子"];
+                }
+            }
         }
         else{
             NSLog(@"error  %@ ",error);
+            [SVProgressHUD showErrorWithStatus:@"啊哦，搜索失败了，小房子正在后台努力改进中~"];
         }
-        [SVProgressHUD dismiss];
     }];
 }
 

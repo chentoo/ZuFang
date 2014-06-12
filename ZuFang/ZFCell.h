@@ -13,5 +13,7 @@
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UILabel *timeLabel;
+@property (nonatomic, strong) UILabel *tipsLabel;
+@property (nonatomic, strong) UIView *titleBackView;
 
 @end

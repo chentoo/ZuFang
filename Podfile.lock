@@ -23,6 +23,7 @@ PODS:
   - SVPullToRefresh (0.4.1)
   - UIActivityIndicator-for-SDWebImage (1.0.5):
     - SDWebImage (~> 3.2)
+  - UMengAnalytics (3.1.2)
 
 DEPENDENCIES:
   - AVOSCloud
@@ -31,6 +32,7 @@ DEPENDENCIES:
   - SVProgressHUD
   - SVPullToRefresh
   - UIActivityIndicator-for-SDWebImage
+  - UMengAnalytics
 
 SPEC CHECKSUMS:
   AVOSCloud: d28c040b4ba500af4ae411290a5ba1ca4d9fb483
@@ -40,5 +42,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
   SVPullToRefresh: d5161ebc833a38b465364412e5e307ca80bbb190
   UIActivityIndicator-for-SDWebImage: d9e46f1592d04cfbeda67bb6d7bba5348558697b
+  UMengAnalytics: db0b67f5334f356f8ac53dcc0abcc4bd9d0ffb45
 
 COCOAPODS: 0.33.1
