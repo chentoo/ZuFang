@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3B246E30245D4D9CAA88AC5C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EFD423769A7E4B6D95C538AA /* libPods.a */; };
+		7A030510194948800012150A /* UICollectionView+ScrollToTop.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A03050F194948800012150A /* UICollectionView+ScrollToTop.m */; };
 		7A3C47241937279D00B86D5D /* NSAttributedString+Lintie.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3C47231937279D00B86D5D /* NSAttributedString+Lintie.m */; };
 		7AA2D5C319485D71009D80B1 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA2D5C219485D71009D80B1 /* DetailViewController.m */; };
 		7AE262CF1935D91F00CEC5C2 /* ZFCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE262CE1935D91F00CEC5C2 /* ZFCell.m */; };
@@ -41,6 +42,8 @@
 
 /* Begin PBXFileReference section */
 		6D365C02CBDE45DAA0B27575 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		7A03050E194948800012150A /* UICollectionView+ScrollToTop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+ScrollToTop.h"; sourceTree = "<group>"; };
+		7A03050F194948800012150A /* UICollectionView+ScrollToTop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+ScrollToTop.m"; sourceTree = "<group>"; };
 		7A3C47221937279D00B86D5D /* NSAttributedString+Lintie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Lintie.h"; sourceTree = "<group>"; };
 		7A3C47231937279D00B86D5D /* NSAttributedString+Lintie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Lintie.m"; sourceTree = "<group>"; };
 		7AA2D5C119485D71009D80B1 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
@@ -103,6 +106,8 @@
 			children = (
 				7A3C47221937279D00B86D5D /* NSAttributedString+Lintie.h */,
 				7A3C47231937279D00B86D5D /* NSAttributedString+Lintie.m */,
+				7A03050E194948800012150A /* UICollectionView+ScrollToTop.h */,
+				7A03050F194948800012150A /* UICollectionView+ScrollToTop.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -353,6 +358,7 @@
 				98E67E311884DBC50024E209 /* ZuFangAppDelegate.m in Sources */,
 				7AE262D31935E4CC00CEC5C2 /* House.m in Sources */,
 				7AE262CF1935D91F00CEC5C2 /* ZFCell.m in Sources */,
+				7A030510194948800012150A /* UICollectionView+ScrollToTop.m in Sources */,
 				7AA2D5C319485D71009D80B1 /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

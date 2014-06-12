@@ -3,16 +3,18 @@
 //  ZuFang
 //
 //  Created by Summer on 14/1/14.
-//  Copyright (c) 2014 kodak. All rights reserved.
+//  Copyright (c) 2014 chentoo. All rights reserved.
 //
 
 #import "ZuFangViewController.h"
 #import <SVProgressHUD/SVProgressHUD.h>
 #import <UIImageView+UIActivityIndicatorForSDWebImage.h>
+#import <UIActivityIndicator-for-SDWebImage/UIImageView+UIActivityIndicatorForSDWebImage.h>
 #import "NSAttributedString+Lintie.h"
 #import "ZFCell.h"
 #import "House.h"
 #import "DetailViewController.h"
+#import "UICollectionView+ScrollToTop.h"
 
 static NSInteger kMaxNumOfPages = 10;
 
@@ -27,7 +29,7 @@ static NSInteger kMaxNumOfPages = 10;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *showAllHouseButtonItem;
 @property (strong, nonatomic) NSString *currentKeys;
-
+@property (strong, nonatomic) AVSearchQuery *currentSearchQuery;
 @end
 
 @implementation ZuFangViewController
@@ -40,7 +42,7 @@ static NSInteger kMaxNumOfPages = 10;
     _housesArray = [[NSMutableArray alloc] init];
     [self initCollectionView];
     [self findAds:NO];
-    
+    _currentSearchQuery = [[AVSearchQuery alloc] init];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -74,6 +76,8 @@ static NSInteger kMaxNumOfPages = 10;
 - (IBAction)showAllButtonPressed:(id)sender
 {
     self.showAllHouseButtonItem.enabled = NO;
+    self.currentSearchQuery = nil;
+    self.searchBar.text = @"";
 //    self.hasMore = YES;
     [self refreshCollectionView];
 }
@@ -96,7 +100,7 @@ static NSInteger kMaxNumOfPages = 10;
 - (void)findAds:(BOOL)isAppend
 {
     __weak ZuFangViewController *weakSelf = self;
-
+    [SVProgressHUD showWithStatus:@"加载中"];
     AVQuery *houseQuery = [House query];
     houseQuery.limit = kMaxNumOfPages;
     houseQuery.skip = isAppend ? self.housesArray.count : 0;
@@ -111,8 +115,10 @@ static NSInteger kMaxNumOfPages = 10;
                 weakSelf.housesArray = [NSMutableArray arrayWithArray:objects];
                 weakSelf.hasMore = YES;
                 [weakSelf.collectionView reloadData];
+                [self.collectionView scrollToTop];
             }
         }
+        [SVProgressHUD dismiss];
     }];
     
 }
@@ -174,12 +180,13 @@ static NSInteger kMaxNumOfPages = 10;
         __block ZFCell *weakCell = cell;
         [cell.imageView setImageWithURL:[NSURL URLWithString:imageUrl]
                               completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-                                  weakCell.imageView.alpha = 0;
-                                  [UIView animateWithDuration:0.3
-                                                   animations:^{
-                                                       weakCell.imageView.alpha = 1.0;
-                                                   }];
-                              }];
+                                   weakCell.imageView.alpha = 0;
+                                   [UIView animateWithDuration:0.3
+                                                    animations:^{
+                                                        weakCell.imageView.alpha = 1.0;
+                                                    }];
+                               }
+            usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     }
     else{
         [cell.imageView setImage:nil];
@@ -199,7 +206,7 @@ static NSInteger kMaxNumOfPages = 10;
     
     if (indexPath.row == self.housesArray.count - 1 && self.hasMore) {
         if ([self isSearchingState]) {
-            [self searchWithKeys:self.currentKeys loadMore:YES];
+            [self searchMore];
         }
         else{
             [self findAds:YES];
@@ -251,40 +258,33 @@ static NSInteger kMaxNumOfPages = 10;
 
 #pragma mark - AVSearchQuery
 
-- (void)searchWithKeys:(NSString *)keys loadMore:(BOOL)loadMore
+- (void)searchMore
 {
-    if (loadMore) {
-        if (self.hasMore) {
-            House *lastHouse = self.housesArray.lastObject;
-            NSString *lastId = lastHouse.objectId;
-            [self searchWithKeys:keys lastId:lastId];
-        }
-    }
-    else
+    if (self.currentSearchQuery == nil)
     {
-        [self searchWithKeys:keys lastId:nil];
-    }
-}
-
-- (void)searchWithKeys:(NSString *)keys lastId:(NSString *)lastId
-{
-    if (keys == nil || keys.length == 0) {
         return;
     }
-    AVSearchQuery *searchQuery = [AVSearchQuery searchWithQueryString:[NSString stringWithFormat:@"title:(%@)", keys]];
-    searchQuery.className = @"House";
-    searchQuery.limit = kMaxNumOfPages;
-    searchQuery.lastId = lastId;
-    
+    [self searchWithQuery:self.currentSearchQuery loadMore:YES];
+}
+
+- (void)searchWithQuery:(AVSearchQuery *)searchQuery loadMore:(BOOL)loadMore
+{
+    [SVProgressHUD showWithStatus:@"加载中"];
     [searchQuery findInBackground:^(NSArray *objects, NSError *error) {
         if (error == nil) {
-//            NSLog(@"objects %d", objects.count);
-
+            NSLog(@"objects %d", objects.count);
+            
             self.hasMore = objects.count == kMaxNumOfPages;
             if (objects.count > 0) {
                 [AVObject fetchAll:objects];
-                self.housesArray = [objects mutableCopy];
-                [self.collectionView reloadData];
+                if (loadMore)
+                {
+                    [self addAdsToCollectionViewBottom:objects];
+                }
+                else{
+                    self.housesArray = [objects mutableCopy];
+                    [self.collectionView reloadData];
+                }
             }
             self.showAllHouseButtonItem.enabled = YES;
         }
@@ -293,6 +293,18 @@ static NSInteger kMaxNumOfPages = 10;
         }
         [SVProgressHUD dismiss];
     }];
+}
+
+- (void)searchWithKeys:(NSString *)keys
+{
+    if (keys == nil || keys.length == 0) {
+        return;
+    }
+    AVSearchQuery *searchQuery = [AVSearchQuery searchWithQueryString:[NSString stringWithFormat:@"title:(%@)", keys]];
+    searchQuery.className = @"House";
+    searchQuery.limit = kMaxNumOfPages;
+    self.currentSearchQuery = searchQuery;
+    [self searchWithQuery:searchQuery loadMore:NO];
 }
 
 - (NSArray *)keyWordsArrayWithString:(NSString *)string
@@ -341,7 +353,7 @@ static NSInteger kMaxNumOfPages = 10;
     [self.view endEditing:YES];
     [SVProgressHUD showWithStatus:@"疯狂搜索中..."];
     self.currentKeys = searchBar.text;
-    [self searchWithKeys:searchBar.text loadMore:NO];
+    [self searchWithKeys:searchBar.text];
 }
 
 @end

@@ -3,7 +3,7 @@
 //  ZuFang
 //
 //  Created by xiazhidi on 14-6-11.
-//  Copyright (c) 2014年 kodak. All rights reserved.
+//  Copyright (c) 2014年 chentoo. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

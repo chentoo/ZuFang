@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Zu Fang View Controller-->
+        <!--Zu Fang View Controller - 找个小房子-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ZuFangViewController" sceneMemberID="viewController">
@@ -44,7 +44,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Akp-yG-rlo">
+                    <navigationItem key="navigationItem" title="找个小房子" id="Akp-yG-rlo">
                         <barButtonItem key="leftBarButtonItem" title="清除搜索" id="N4F-hZ-tQI">
                             <connections>
                                 <action selector="showAllButtonPressed:" destination="BYZ-38-t0r" id="ORE-aa-49f"/>

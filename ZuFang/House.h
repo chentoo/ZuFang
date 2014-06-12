@@ -3,7 +3,7 @@
 //  ZuFang
 //
 //  Created by xiazhidi on 14-5-28.
-//  Copyright (c) 2014年 kodak. All rights reserved.
+//  Copyright (c) 2014年 chentoo. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
